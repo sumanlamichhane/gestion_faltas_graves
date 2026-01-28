@@ -17,6 +17,8 @@
 
 
 
+
+
         <!-- Form View Alumno -->
         <record id="view_alumno_form" model="ir.ui.view">
             <field name="name">gestion.alumno.form</field>
