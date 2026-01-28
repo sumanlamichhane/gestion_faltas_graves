@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_falta_tree" model="ir.ui.view">
+            <field name="name">gestion.falta.tree</field>
+            <field name="model">gestion.falta</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="estado in ('borrador', 'en_instruccion')" 
+                      decoration-muted="estado in ('cerrado', 'resuelto')" 
+                      decoration-success="estado=='resuelto'"
+                      sample="1">
+                    <field name="numero_parte"/>
+                    <field name="fecha_hora"/>
+                    <field name="alumno_id" widget="many2one_avatar"/>
+                    <field name="grupo_id"/>
+                    <field name="motivo_id"/>
+                    <field name="lugar"/>
+                    <field name="profesor_id"/>
+                    <field name="estado" widget="badge" 
+                           decoration-info="estado == 'borrador'"
+                           decoration-warning="estado == 'en_instruccion'"
+                           decoration-success="estado == 'resuelto'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_falta_form" model="ir.ui.view">
+            <field name="name">gestion.falta.form</field>
+            <field name="model">gestion.falta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_cerrar_falta" string="Cerrar Incidencia" type="object" 
+                                states="borrador,en_instruccion" class="oe_highlight"/>
+                        <button name="action_reabrir_falta" string="Reabrir" type="object" 
+                                states="cerrado,resuelto" groups="base.group_no_one"/>
+                        
+                        <field name="estado" widget="statusbar" statusbar_visible="borrador,en_instruccion,resuelto,cerrado"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Cerrado" bg_color="bg-danger"
+                                attrs="{'invisible': [('estado', '!=', 'cerrado')]}"/>
+                        <widget name="web_ribbon" title="Resuelto" bg_color="bg-success"
+                                attrs="{'invisible': [('estado', '!=', 'resuelto')]}"/>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="numero_parte" readonly="1"/>
+                            </h1>
+                            <h2 style="color: #7C7BAD;">
+                                <field name="alumno_id" options="{'no_create': True}" placeholder="Selecciona Alumno"/>
+                            </h2>
+                            <div style="font-size: 14px; color: #666;">
+                                <span class="fa fa-users"/> Grupo: <field name="grupo_id" readonly="1" class="oe_inline"/> | 
+                                <span class="fa fa-id-card"/> NIA: <field name="nia" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <group>
+                            <group string="Detalles del Suceso">
+                                <field name="fecha_hora"/>
+                                <field name="lugar"/>
+                                <field name="motivo_id" options="{'no_create': True}"/>
+                                <field name="asignatura_id" attrs="{'invisible': [('lugar', '!=', 'aula')]}"/>
+                            </group>
+                            <group string="Responsable">
+                                <field name="profesor_id" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Hechos y Testigos">
+                                <group>
+                                    <field name="descripcion_hechos" placeholder="Describa detalladamente lo ocurrido..." style="min-height: 100px;"/>
+                                    <field name="testigos" placeholder="Nombres de los testigos..."/>
+                                </group>
+                            </page>
+                            
+                            <page string="Comunicación con Familia">
+                                <group>
+                                    <group>
+                                        <field name="llamada_familia" widget="radio"/>
+                                        <field name="fecha_llamada" attrs="{'invisible': [('llamada_familia', '=', 'no_llamada')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="observaciones_familia" placeholder="Comentarios de los padres..."/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Resolución y Medidas">
+                                <group>
+                                    <field name="medidas_iniciales" placeholder="Medidas tomadas por el profesor..."/>
+                                    <field name="observaciones_directiva" placeholder="Resolución final de jefatura de estudios..."/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

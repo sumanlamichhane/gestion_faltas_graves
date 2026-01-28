@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View Alumno -->
+        <record id="view_alumno_tree" model="ir.ui.view">
+            <field name="name">gestion.alumno.tree</field>
+            <field name="model">gestion.alumno</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"/>
+                    <field name="nia"/>
+                    <field name="grupo_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <!-- Form View Alumno -->
+        <record id="view_alumno_form" model="ir.ui.view">
+            <field name="name">gestion.alumno.form</field>
+            <field name="model">gestion.alumno</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="nombre"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="nia"/>
+                                <field name="nia"/>
+                            </group>
+                            <group>
+                                <label for="grupo_id"/>
+                                <field name="grupo_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

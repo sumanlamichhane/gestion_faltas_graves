@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gestion_alumno,gestion.alumno,model_gestion_alumno,base.group_user,1,1,1,1
+access_gestion_profesor,gestion.profesor,model_gestion_profesor,base.group_user,1,1,1,1
+access_gestion_grupo,gestion.grupo,model_gestion_grupo,base.group_user,1,1,1,1
+access_gestion_asignatura,gestion.asignatura,model_gestion_asignatura,base.group_user,1,1,1,1
+access_gestion_motivo,gestion.motivo,model_gestion_motivo,base.group_user,1,1,1,1
+access_gestion_falta,gestion.falta,model_gestion_falta,base.group_user,1,1,1,1
