@@ -64,7 +64,7 @@
                                 <field name="asignatura_id" attrs="{'invisible': [('lugar', '!=', 'aula')]}"/>
                             </group>
                             <group string="Responsable">
-                                <field name="profesor_id" readonly="1"/>
+                                <field name="profesor_id" readonly="0"/>
                             </group>
                         </group>
 
