@@ -16,19 +16,19 @@
                   parent="menu_gestion_faltas_root"
                   sequence="10"/>
 
-        <!-- Acción: Mis partes -->
+                <!-- Acción: Mis partes -->
         <record id="action_mis_partes" model="ir.actions.act_window">
             <field name="name">Mis partes</field>
             <field name="res_model">gestion.falta</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('profesor_id.usuario_id', '=', uid)]</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
         </record>
 
         <menuitem id="menu_gestion_faltas_mis_partes"
-                  name="Mis partes"
-                  parent="menu_gestion_faltas_gestion"
-                  action="action_mis_partes"
-                  sequence="11"/>
+                name="Mis partes"
+                parent="menu_gestion_faltas_gestion"
+                action="action_mis_partes"
+                sequence="11"/>
 
         <!-- Acción: Todos los partes -->
         <record id="action_todos_partes" model="ir.actions.act_window">
@@ -38,10 +38,11 @@
         </record>
 
         <menuitem id="menu_gestion_faltas_todos_partes"
-                  name="Todos los partes"
-                  parent="menu_gestion_faltas_gestion"
-                  action="action_todos_partes"
-                  sequence="12"/>
+                name="Todos los partes"
+                parent="menu_gestion_faltas_gestion"
+                action="action_todos_partes"
+                sequence="12"/>
+
 
         <!-- ========================================================= -->
         <!--                        CONFIGURACIÓN                      -->
