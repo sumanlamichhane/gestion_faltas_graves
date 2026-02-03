@@ -6,3 +6,4 @@ class GestionAsignatura(models.Model):
     _rec_name = 'nombre'
 
     nombre = fields.Char(string='Nombre Asignatura', required=True)
+    profesor_id = fields.Many2one('gestion.profesor', string='Profesor Responsable')

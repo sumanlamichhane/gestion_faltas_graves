@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Tree View Alumno -->
         <record id="view_alumno_tree" model="ir.ui.view">
             <field name="name">gestion.alumno.tree</field>
             <field name="model">gestion.alumno</field>
@@ -14,12 +13,6 @@
             </field>
         </record>
 
-
-
-
-
-
-        <!-- Form View Alumno -->
         <record id="view_alumno_form" model="ir.ui.view">
             <field name="name">gestion.alumno.form</field>
             <field name="model">gestion.alumno</field>
@@ -27,16 +20,13 @@
                 <form>
                     <sheet>
                         <div class="oe_title">
-                            <h1><field name="nombre"/></h1>
+                            <label for="nombre" class="oe_edit_only" string="Nombre Completo del Alumno"/>
+                            <h1><field name="nombre" placeholder="Ej: Juan Pérez García"/></h1>
                         </div>
                         <group>
-                            <group>
-                                <label for="nia"/>
-                                <field name="nia"/>
-                            </group>
-                            <group>
-                                <label for="grupo_id"/>
-                                <field name="grupo_id"/>
+                            <group string="Datos de Identificación">
+                                <field name="nia" placeholder="Número de Identificación"/>
+                                <field name="grupo_id" options="{'no_create': True, 'no_open': True}"/>
                             </group>
                         </group>
                     </sheet>

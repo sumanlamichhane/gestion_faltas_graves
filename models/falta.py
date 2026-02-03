@@ -13,8 +13,10 @@ class GestionFalta(models.Model):
     alumno_id = fields.Many2one('gestion.alumno', string='Alumno', required=True)
     nia = fields.Char(string='NIA', related='alumno_id.nia', readonly=True)
     grupo_id = fields.Many2one('gestion.grupo', string='Grupo', related='alumno_id.grupo_id', store=True)
+    
     profesor_id = fields.Many2one('gestion.profesor', string='Profesor', required=True,
                                  default=lambda self: self._get_default_profesor())
+    
     asignatura_id = fields.Many2one('gestion.asignatura', string='Asignatura')
     
     fecha_hora = fields.Datetime(string='Fecha y Hora', required=True, default=fields.Datetime.now)
@@ -53,6 +55,12 @@ class GestionFalta(models.Model):
     def _get_default_profesor(self):
         profesor = self.env['gestion.profesor'].search([('usuario_id', '=', self.env.user.id)], limit=1)
         return profesor.id if profesor else False
+
+    @api.onchange('asignatura_id')
+    def _onchange_asignatura_id(self):
+        """Auto-asigna el profesor de la asignatura seleccionada"""
+        if self.asignatura_id and self.asignatura_id.profesor_id:
+            self.profesor_id = self.asignatura_id.profesor_id
 
     def action_cerrar_falta(self):
         self.estado = 'cerrado'

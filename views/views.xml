@@ -15,14 +15,14 @@
             <field name="name">Mis partes</field>
             <field name="res_model">gestion.falta</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('profesor_id.usuario_id', '=', uid)]</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
         </record>
 
         <menuitem id="menu_gestion_faltas_mis_partes"
-                  name="Mis partes"
-                  parent="menu_gestion_faltas_gestion"
-                  action="action_mis_partes"
-                  sequence="11"/>
+                name="Mis partes"
+                parent="menu_gestion_faltas_gestion"
+                action="action_mis_partes"
+                sequence="11"/>
 
         <record id="action_todos_partes" model="ir.actions.act_window">
             <field name="name">Todos los partes</field>
