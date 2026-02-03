@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import datetime
+from odoo.exceptions import ValidationError
 
 class GestionFalta(models.Model):
     _name = 'gestion.falta'
@@ -30,7 +31,11 @@ class GestionFalta(models.Model):
     
     motivo_id = fields.Many2one('gestion.motivo', string='Motivo Sanción', required=True)
     descripcion_hechos = fields.Text(string='Descripción Hechos', required=True)
-    testigos = fields.Text(string='Testigos')
+    testigos = fields.Text(
+    string='Testigos', 
+    placeholder='Nombres de alumnos o profesores que lo vieron...',
+    help='Si no hay testigos, dejar en blanco' 
+)
     
     llamada_familia = fields.Selection([
         ('llamada', 'Llamada OK'),
@@ -67,3 +72,9 @@ class GestionFalta(models.Model):
 
     def action_reabrir_falta(self):
         self.estado = 'borrador'
+
+    @api.constrains('fecha_llamada')
+    def _check_fecha_llamada(self):
+        for record in self:
+            if record.fecha_llamada and record.fecha_llamada > fields.Datetime.now():
+                raise ValidationError("La fecha de la llamada no puede ser futura.")
