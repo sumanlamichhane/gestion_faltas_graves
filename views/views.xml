@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- ========================================================= -->
-        <!--                       MENÚ PRINCIPAL                      -->
-        <!-- ========================================================= -->
         <menuitem id="menu_gestion_faltas_root"
                   name="Gestión de Faltas"
+                  web_icon="gestion_faltas_graves,static/description/icon.png"
                   sequence="1"/>
 
-        <!-- ========================================================= -->
-        <!--                    GESTIÓN DE FALTAS                      -->
-        <!-- ========================================================= -->
         <menuitem id="menu_gestion_faltas_gestion"
                   name="Gestión de faltas"
                   parent="menu_gestion_faltas_root"
                   sequence="10"/>
 
-        <!-- Acción: Mis partes -->
         <record id="action_mis_partes" model="ir.actions.act_window">
             <field name="name">Mis partes</field>
             <field name="res_model">gestion.falta</field>
@@ -30,7 +24,6 @@
                   action="action_mis_partes"
                   sequence="11"/>
 
-        <!-- Acción: Todos los partes -->
         <record id="action_todos_partes" model="ir.actions.act_window">
             <field name="name">Todos los partes</field>
             <field name="res_model">gestion.falta</field>
@@ -41,56 +34,67 @@
                   name="Todos los partes"
                   parent="menu_gestion_faltas_gestion"
                   action="action_todos_partes"
+                  groups="gestion_faltas_graves.group_gestion_profesor"
                   sequence="12"/>
 
-        <!-- ========================================================= -->
-        <!--                        CONFIGURACIÓN                      -->
-        <!-- ========================================================= -->
         <menuitem id="menu_gestion_faltas_config"
                   name="Configuración"
                   parent="menu_gestion_faltas_root"
+                  groups="gestion_faltas_graves.group_gestion_profesor"
                   sequence="20"/>
 
-        <!-- Alumnos -->
         <record id="action_alumnos" model="ir.actions.act_window">
             <field name="name">Alumnos</field>
             <field name="res_model">gestion.alumno</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_alumnos"
+        <menuitem id="submenu_alumnos"
                   name="Alumnos"
                   parent="menu_gestion_faltas_config"
                   action="action_alumnos"
-                  sequence="21"/>
+                  groups="gestion_faltas_graves.group_gestion_profesor"
+                  sequence="1"/>
 
-        <!-- Profesores -->
         <record id="action_profesores" model="ir.actions.act_window">
             <field name="name">Profesores</field>
             <field name="res_model">gestion.profesor</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_profesores"
+        <menuitem id="submenu_profesores"
                   name="Profesores"
                   parent="menu_gestion_faltas_config"
                   action="action_profesores"
-                  sequence="22"/>
+                  groups="gestion_faltas_graves.group_gestion_jefe_estudios"
+                  sequence="2"/>
 
-        <!-- Grupos y aulas -->
         <record id="action_grupos" model="ir.actions.act_window">
             <field name="name">Grupos y aulas</field>
             <field name="res_model">gestion.grupo</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_grupos"
+        <menuitem id="submenu_grupos"
                   name="Grupos y aulas"
                   parent="menu_gestion_faltas_config"
                   action="action_grupos"
-                  sequence="23"/>
+                  groups="gestion_faltas_graves.group_gestion_jefe_estudios"
+                  sequence="3"/>
 
-        <!-- Infracción grave -->
+        <record id="action_asignaturas" model="ir.actions.act_window">
+            <field name="name">Asignaturas</field>
+            <field name="res_model">gestion.asignatura</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="submenu_asignaturas"
+                  name="Asignaturas"
+                  parent="menu_gestion_faltas_config"
+                  action="action_asignaturas" 
+                  groups="gestion_faltas_graves.group_gestion_jefe_estudios"
+                  sequence="4"/>
+
         <record id="action_infraccion" model="ir.actions.act_window">
             <field name="name">Infracción grave</field>
             <field name="res_model">gestion.motivo</field>
@@ -98,44 +102,43 @@
             <field name="domain">[('es_grave', '=', True)]</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_infraccion"
-                  name="Infracción grave"
+        <menuitem id="submenu_motivos"
+                  name="Motivos y Sanciones"
                   parent="menu_gestion_faltas_config"
                   action="action_infraccion"
-                  sequence="24"/>
+                  groups="gestion_faltas_graves.group_gestion_jefe_estudios"
+                  sequence="5"/>
 
-        <!-- ========================================================= -->
-        <!--                 INFORMES Y ESTADÍSTICAS                   -->
-        <!-- ========================================================= -->
         <menuitem id="menu_gestion_faltas_informes"
                   name="Informes y estadísticas"
                   parent="menu_gestion_faltas_root"
+                  groups="gestion_faltas_graves.group_gestion_profesor"
                   sequence="30"/>
 
-        <!-- Análisis gráfico -->
         <record id="action_analisis" model="ir.actions.act_window">
             <field name="name">Análisis gráfico</field>
             <field name="res_model">gestion.falta</field>
             <field name="view_mode">tree,form,graph,pivot</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_analisis"
+        <menuitem id="submenu_analisis"
                   name="Análisis gráfico"
                   parent="menu_gestion_faltas_informes"
                   action="action_analisis"
-                  sequence="31"/>
+                  groups="gestion_faltas_graves.group_gestion_profesor"
+                  sequence="1"/>
 
-        <!-- Reportes PDF -->
         <record id="action_reportes" model="ir.actions.act_window">
             <field name="name">Reportes PDF</field>
             <field name="res_model">gestion.falta</field>
             <field name="view_mode">tree</field>
         </record>
 
-        <menuitem id="menu_gestion_faltas_reportes"
+        <menuitem id="submenu_reportes"
                   name="Reportes PDF"
                   parent="menu_gestion_faltas_informes"
                   action="action_reportes"
-                  sequence="32"/>
+                  groups="gestion_faltas_graves.group_gestion_profesor"
+                  sequence="2"/>
     </data>
 </odoo>

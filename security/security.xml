@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="module_category_gestion_faltas" model="ir.module.category">
+            <field name="name">Gestión de Convivencia</field>
+            <field name="description">Niveles de acceso para la gestión de faltas graves.</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_gestion_profesor" model="res.groups">
+            <field name="name">Profesor</field>
+            <field name="category_id" ref="module_category_gestion_faltas"/>
+            <field name="comment">Puede crear partes y ver alumnos, pero solo ve sus propios partes.</field>
+        </record>
+
+        <record id="group_gestion_jefe_estudios" model="res.groups">
+            <field name="name">Jefe de Estudios</field>
+            <field name="category_id" ref="module_category_gestion_faltas"/>
+            <field name="implied_ids" eval="[(4, ref('group_gestion_profesor'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+
+        <record id="rule_gestion_falta_profesor_propios" model="ir.rule">
+            <field name="name">Ver solo mis partes (Profesor)</field>
+            <field name="model_id" ref="model_gestion_falta"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_gestion_profesor'))]"/>
+        </record>
+
+        <record id="rule_gestion_falta_jefe_todos" model="ir.rule">
+            <field name="name">Ver todos los partes (Jefe Estudios)</field>
+            <field name="model_id" ref="model_gestion_falta"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_gestion_jefe_estudios'))]"/>
+        </record>
+
+    </data>
+</odoo>
