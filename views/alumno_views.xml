@@ -9,6 +9,9 @@
                     <field name="nombre"/>
                     <field name="nia"/>
                     <field name="grupo_id"/>
+                    <field name="total_faltas" 
+                           decoration-danger="total_faltas > 0" 
+                           decoration-bf="total_faltas > 0"/>
                 </tree>
             </field>
         </record>
@@ -19,20 +22,44 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <field name="foto" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
-                            <label for="nombre" class="oe_edit_only" string="Nombre Completo del Alumno"/>
-                            <h1><field name="nombre" placeholder="Ej: Juan Pérez García"/></h1>
+                            <label for="nombre" class="oe_edit_only"/>
+                            <h1><field name="nombre"/></h1>
                         </div>
                         <group>
-                            <group string="Datos de Identificación">
-                                <field name="nia" placeholder="Número de Identificación"/>
-                                <field name="grupo_id" options="{'no_create': True, 'no_open': True}"/>
+                            <group>
+                                <field name="nia"/>
+                                <field name="grupo_id"/>
+                            </group>
+                            <group>
+                                <field name="total_faltas"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Historial de Faltas">
+                                <field name="falta_ids">
+                                    <tree decoration-danger="gravedad == '3'">
+                                        <field name="fecha_hora"/>
+                                        <field name="motivo_id"/>
+                                        <field name="gravedad" widget="badge" 
+                                               decoration-success="gravedad == '0'" 
+                                               decoration-info="gravedad == '1'"
+                                               decoration-warning="gravedad == '2'"
+                                               decoration-danger="gravedad == '3'"/>
+                                        <field name="estado" widget="badge"
+                                               decoration-info="estado == 'borrador'"
+                                               decoration-warning="estado == 'en_instruccion'"
+                                               decoration-success="estado == 'resuelto'"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
+
         <record id="view_alumno_kanban" model="ir.ui.view">
             <field name="name">gestion.alumno.kanban</field>
             <field name="model">gestion.alumno</field>
@@ -40,27 +67,23 @@
                 <kanban>
                     <field name="id"/>
                     <field name="nombre"/>
-                    <field name="nia"/>
-                    <field name="grupo_id"/>
                     <field name="foto"/>
                     <field name="total_faltas"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
                                 <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('gestion.alumno', 'foto', record.id.raw_value)" class="o_image_64_contain" alt="Alumno"/>
+                                    <img t-att-src="kanban_image('gestion.alumno', 'foto', record.id.raw_value)" alt="Alumno"/>
                                 </div>
                                 <div class="oe_kanban_details">
-                                    <strong class="o_kanban_record_title"><field name="nombre"/></strong>
-                                    <div><span class="fa fa-id-card"/> <field name="nia"/></div>
-                                    <div><span class="fa fa-users"/> <field name="grupo_id"/></div>
-                                    <div class="mt-2">
-                                        <span class="badge badge-danger" t-if="record.total_faltas.raw_value &gt; 0">
-                                            <i class="fa fa-exclamation-triangle"/> <field name="total_faltas"/> Faltas
+                                    <strong><field name="nombre"/></strong>
+                                    <div t-if="record.total_faltas.raw_value > 0">
+                                        <span class="badge badge-danger">
+                                            <field name="total_faltas"/> Faltas
                                         </span>
-                                        <span class="badge badge-success" t-if="record.total_faltas.raw_value == 0">
-                                            Sin Faltas
-                                        </span>
+                                    </div>
+                                    <div t-else="">
+                                        <span class="badge badge-success">Sin Faltas</span>
                                     </div>
                                 </div>
                             </div>

@@ -1,30 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-<!--
-          <record id="object0" model="gestion_faltas_graves.gestion_faltas_graves">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
+    <data noupdate="1">
+        <record id="grupo_1eso_a" model="gestion.grupo">
+            <field name="name">1º ESO A</field>
+        </record>
+        <record id="grupo_2eso_b" model="gestion.grupo">
+            <field name="name">2º ESO B</field>
+        </record>
+        <record id="grupo_4eso_c" model="gestion.grupo">
+            <field name="name">4º ESO C</field>
+        </record>
 
-          <record id="object1" model="gestion_faltas_graves.gestion_faltas_graves">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
+        <record id="motivo_agresion" model="gestion.motivo">
+            <field name="name">Agresión física</field>
+        </record>
+        <record id="motivo_insulto" model="gestion.motivo">
+            <field name="name">Insultos a profesor</field>
+        </record>
+        <record id="motivo_material" model="gestion.motivo">
+            <field name="name">Daños material</field>
+        </record>
+        <record id="motivo_retraso" model="gestion.motivo">
+            <field name="name">Retrasos reiterados</field>
+        </record>
 
-          <record id="object2" model="gestion_faltas_graves.gestion_faltas_graves">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
+        <record id="profesor_demo_1" model="gestion.profesor">
+            <field name="nombre">Juan Antonio Profe</field>
+            <field name="dni">12345678A</field>
+        </record>
+        <record id="profesor_demo_2" model="gestion.profesor">
+            <field name="nombre">Marta Tutora</field>
+            <field name="dni">87654321B</field>
+        </record>
 
-          <record id="object3" model="gestion_faltas_graves.gestion_faltas_graves">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
+        <record id="alumno_1" model="gestion.alumno">
+            <field name="nombre">Alejandro Magno</field>
+            <field name="nia">1001</field>
+            <field name="grupo_id" ref="grupo_1eso_a"/>
+        </record>
+        <record id="alumno_2" model="gestion.alumno">
+            <field name="nombre">Beatriz Potter</field>
+            <field name="nia">1002</field>
+            <field name="grupo_id" ref="grupo_1eso_a"/>
+        </record>
+        <record id="alumno_3" model="gestion.alumno">
+            <field name="nombre">Carlos V</field>
+            <field name="nia">1003</field>
+            <field name="grupo_id" ref="grupo_2eso_b"/>
+        </record>
+        <record id="alumno_4" model="gestion.alumno">
+            <field name="nombre">Diana Prince</field>
+            <field name="nia">1004</field>
+            <field name="grupo_id" ref="grupo_2eso_b"/>
+        </record>
+        <record id="alumno_5" model="gestion.alumno">
+            <field name="nombre">Peter Parker</field>
+            <field name="nia">1005</field>
+            <field name="grupo_id" ref="grupo_4eso_c"/>
+        </record>
+        <record id="alumno_6" model="gestion.alumno">
+            <field name="nombre">Clark Kent</field>
+            <field name="nia">1006</field>
+            <field name="grupo_id" ref="grupo_4eso_c"/>
+        </record>
 
-          <record id="object4" model="gestion_faltas_graves.gestion_faltas_graves">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
--->
+        <record id="falta_demo_1" model="gestion.falta">
+            <field name="alumno_id" ref="alumno_5"/>
+            <field name="profesor_id" ref="profesor_demo_1"/>
+            <field name="motivo_id" ref="motivo_agresion"/>
+            <field name="lugar">patio</field>
+            <field name="gravedad">3</field>
+            <field name="descripcion_hechos">Pelea durante el recreo.</field>
+            <field name="estado">en_instruccion</field>
+            <field name="fecha_hora" eval="(DateTime.now()).strftime('%Y-%m-%d 10:30:00')"/>
+        </record>
+
+        <record id="falta_demo_2" model="gestion.falta">
+            <field name="alumno_id" ref="alumno_1"/>
+            <field name="profesor_id" ref="profesor_demo_2"/>
+            <field name="motivo_id" ref="motivo_retraso"/>
+            <field name="lugar">aula</field>
+            <field name="gravedad">0</field>
+            <field name="descripcion_hechos">Llega tarde sin justificar.</field>
+            <field name="estado">borrador</field>
+        </record>
+
+        <record id="falta_demo_3" model="gestion.falta">
+            <field name="alumno_id" ref="alumno_3"/>
+            <field name="profesor_id" ref="profesor_demo_1"/>
+            <field name="motivo_id" ref="motivo_material"/>
+            <field name="lugar">aula</field>
+            <field name="gravedad">2</field>
+            <field name="descripcion_hechos">Pintadas en la mesa.</field>
+            <field name="estado">resuelto</field>
+        </record>
+        
+        <record id="falta_demo_4" model="gestion.falta">
+            <field name="alumno_id" ref="alumno_6"/>
+            <field name="profesor_id" ref="profesor_demo_2"/>
+            <field name="motivo_id" ref="motivo_insulto"/>
+            <field name="lugar">pasillo</field>
+            <field name="gravedad">1</field>
+            <field name="descripcion_hechos">Falta de respeto leve.</field>
+            <field name="estado">cerrado</field>
+        </record>
+
+        <record id="falta_demo_5" model="gestion.falta">
+            <field name="alumno_id" ref="alumno_2"/>
+            <field name="profesor_id" ref="profesor_demo_1"/>
+            <field name="motivo_id" ref="motivo_agresion"/>
+            <field name="lugar">gimnasio</field>
+            <field name="gravedad">3</field>
+            <field name="descripcion_hechos">Lanzar balón a un compañero a la cara.</field>
+            <field name="estado">en_instruccion</field>
+        </record>
     </data>
 </odoo>

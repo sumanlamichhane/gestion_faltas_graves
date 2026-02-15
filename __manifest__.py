@@ -16,8 +16,11 @@
         'views/motivo_views.xml',
         'views/falta_views.xml',
         'views/views.xml',
-        'reports/report_faltas.xml'
+        'reports/report_faltas.xml',
+        
+        'demo/demo.xml',  
     ],
+    
     'installable': True,
     'application': True,
 }

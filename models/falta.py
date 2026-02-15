@@ -20,6 +20,13 @@ class GestionFalta(models.Model):
     
     asignatura_id = fields.Many2one('gestion.asignatura', string='Asignatura')
     
+    gravedad = fields.Selection([
+        ('0', 'Leve'),
+        ('1', 'Normal'),
+        ('2', 'Grave'),
+        ('3', 'Muy Grave')
+            ], string='Gravedad', default='1')
+
     fecha_hora = fields.Datetime(string='Fecha y Hora', required=True, default=fields.Datetime.now)
     lugar = fields.Selection([
         ('aula', 'Aula'),
