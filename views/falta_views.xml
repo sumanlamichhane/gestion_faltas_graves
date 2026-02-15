@@ -35,7 +35,7 @@
                         <button name="action_reabrir_falta" string="Reabrir" type="object" 
                                 states="cerrado,resuelto" groups="base.group_no_one"/>
                         
-                        <field name="estado" widget="statusbar" statusbar_visible="borrador,en_instruccion,resuelto,cerrado"/>
+                        <field name="estado" widget="statusbar" statusbar_visible="borrador,en_instruccion,resuelto,cerrado" options="{'clickable': '1'}"/>
                     </header>
                     <sheet>
                         <widget name="web_ribbon" title="Cerrado" bg_color="bg-danger"
