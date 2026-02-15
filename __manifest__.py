@@ -4,7 +4,7 @@
     'summary': 'Módulo para gestionar las faltas del instituto',
     'author': 'Equipo de desarrollo',
     'category': 'Education',
-    'depends': ['base'],
+    'depends': ['base', 'web'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -16,6 +16,7 @@
         'views/motivo_views.xml',
         'views/falta_views.xml',
         'views/views.xml',
+        'reports/report_faltas.xml'
     ],
     'installable': True,
     'application': True,
