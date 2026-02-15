@@ -139,7 +139,7 @@
             <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #2c3e50;">
                 <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 65px;"/>
                 <div style="border-bottom: 2px solid #004a99; margin-bottom: 15px;">
-                    <h2 style="color: #004a99; font-weight: bold; margin: 0; font-size: 24px;">RESUMEN DE PARTES SELECCIONADOS</h2>
+                    <h2 style="color: #004a99; font-weight: bold; margin: 0; font-size: 24px;">RESUMEN DE PARTES</h2>
                 </div>
                 <table class="table table-sm" style="width: 100%;">
                     <thead>
