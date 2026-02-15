@@ -56,6 +56,26 @@
                   groups="gestion_faltas_graves.group_gestion_profesor"
                   sequence="1"/>
 
+        <record id="view_profesor_form" model="ir.ui.view">
+            <field name="name">gestion.profesor.form</field>
+            <field name="model">gestion.profesor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nombre"/>
+                                <field name="dni"/>
+                            </group>
+                            <group>
+                                <field name="usuario_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="action_profesores" model="ir.actions.act_window">
             <field name="name">Profesores</field>
             <field name="res_model">gestion.profesor</field>

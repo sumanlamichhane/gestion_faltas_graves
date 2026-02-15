@@ -30,12 +30,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="action_iniciar_instruccion" string="Iniciar Instrucción" type="object" 
-                                states="borrador" class="oe_highlight"/>
-                        <button name="action_resolver_falta" string="Resolver" type="object" 
-                                states="en_instruccion" class="oe_highlight"/>
                         <button name="action_cerrar_falta" string="Cerrar Incidencia" type="object" 
-                                states="borrador,en_instruccion,resuelto"/>
+                                states="borrador,en_instruccion" class="oe_highlight"/>
                         <button name="action_reabrir_falta" string="Reabrir" type="object" 
                                 states="cerrado,resuelto" groups="base.group_no_one"/>
                         
