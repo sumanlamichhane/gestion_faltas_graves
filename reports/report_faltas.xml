@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_partes_graves" model="ir.actions.report">
+        <field name="name">Informe de Partes Graves</field>
+        <field name="model">gestion.falta</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_faltas_graves.report_falta_template</field>
+        <field name="report_file">gestion_faltas_graves.report_falta_template</field>
+        <field name="print_report_name">'Parte_%s_%s' % (object.numero_parte, object.alumno_id.nombre)</field>
+        <field name="binding_model_id" ref="model_gestion_falta"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_resumen_faltas" model="ir.actions.report">
+        <field name="name">Resumen de Partes Activos</field>
+        <field name="model" eval="'gestion.falta'"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_faltas_graves.report_resumen_template</field>
+        <field name="binding_model_id" ref="model_gestion_falta"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_alumno_faltas" model="ir.actions.report">
+        <field name="name">Historial de Partes</field>
+        <field name="model">gestion.alumno</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_faltas_graves.report_alumno_faltas_template</field>
+        <field name="report_file">gestion_faltas_graves.report_alumno_faltas_template</field>
+        <field name="print_report_name">'Historial_%s' % (object.nombre)</field>
+        <field name="binding_model_id" ref="model_gestion_alumno"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_falta_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #333;">
+                        
+                        <div style="background-color: #f8f9fa; border-radius: 10px; padding: 20px; border: 1px solid #dee2e6; margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 style="color: #004a99; margin-top: 0; font-weight: bold;">INFORME DE FALTA GRAVE</h2>
+                                    <h4 style="color: #555;" t-field="o.numero_parte"/>
+                                </div>
+                                <div class="col-5 text-right">
+                                    <div style="display: inline-block; width: 120px; padding: 8px; background: #fff; border: 1px solid #adb5bd; border-radius: 5px; text-align: center;">
+                                        <div style="font-size: 10px; color: #666; font-weight: bold; margin-bottom: 3px;">ESTADO</div>
+                                        <div style="font-weight: bold; text-transform: uppercase; color: #004a99;">
+                                            <span t-field="o.estado"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 30px; border-left: 5px solid #004a99; padding-left: 20px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="margin-bottom: 5px;"><strong>ALUMNO:</strong> <span t-field="o.alumno_id.nombre"/></p>
+                                    <p style="margin-bottom: 5px;"><strong>NIA:</strong> <span t-field="o.nia"/></p>
+                                    <p style="margin-bottom: 5px;"><strong>GRUPO:</strong> <span t-field="o.grupo_id.nombre"/></p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="margin-bottom: 5px;"><strong>FECHA/HORA:</strong> <span t-field="o.fecha_hora"/></p>
+                                    <p style="margin-bottom: 5px;"><strong>LUGAR:</strong> <span style="text-transform: capitalize;" t-field="o.lugar"/></p>
+                                    <p style="margin-bottom: 5px;"><strong>PROFESOR:</strong> <span t-field="o.profesor_id.nombre"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm" style="width: 100%; table-layout: fixed; border: 1px solid #dee2e6; margin-bottom: 25px;">
+                            <thead style="background-color: #004a99; color: white;">
+                                <tr>
+                                    <th style="width: 30%; padding: 10px;">CONCEPTO</th>
+                                    <th style="width: 70%; padding: 10px;">DETALLES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; background: #f8f9fa;"><strong>Motivo</strong></td>
+                                    <td style="padding: 10px;"><span t-field="o.motivo_id.descripcion"/> (<span t-field="o.motivo_id.codigo"/>)</td>
+                                </tr>
+                                <tr t-if="o.asignatura_id">
+                                    <td style="padding: 10px; background: #f8f9fa;"><strong>Asignatura</strong></td>
+                                    <td style="padding: 10px;"><span t-field="o.asignatura_id.nombre"/></td>
+                                </tr>
+                                <tr t-if="o.testigos">
+                                    <td style="padding: 10px; background: #f8f9fa;"><strong>Testigos</strong></td>
+                                    <td style="padding: 10px;"><span t-field="o.testigos"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-bottom: 25px;">
+                            <h5 style="color: #004a99; font-weight: bold; text-transform: uppercase;">Descripción de los Hechos</h5>
+                            <div style="padding: 15px; background: #fff; border: 1px solid #dee2e6; min-height: 80px; border-radius: 5px;">
+                                <span t-field="o.descripcion_hechos"/>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <h5 style="color: #004a99; font-weight: bold; text-transform: uppercase;">Gestión con la Familia</h5>
+                            <table class="table table-bordered table-sm" style="width: 100%;">
+                                <tr>
+                                    <td style="background: #f8f9fa; width: 20%;"><strong>Llamada:</strong></td>
+                                    <td style="width: 30%;"><span t-field="o.llamada_familia"/></td>
+                                    <td style="background: #f8f9fa; width: 20%;"><strong>Fecha:</strong></td>
+                                    <td style="width: 30%;"><span t-field="o.fecha_llamada"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background: #f8f9fa;"><strong>Observaciones:</strong></td>
+                                    <td colspan="3"><span t-field="o.observaciones_familia"/></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <table style="width: 100%; margin-top: 80px; border: none;">
+                            <tr>
+                                <td style="width: 45%; text-align: center; border: none;">
+                                    <div style="border-top: 1px solid #333; padding-top: 10px;">
+                                        <strong>Firma Alumno/Padre/Madre/Tutor</strong>
+                                    </div>
+                                </td>
+                                <td style="width: 10%; border: none;"></td> <td style="width: 45%; text-align: center; border: none;">
+                                    <div style="border-top: 1px solid #333; padding-top: 10px;">
+                                        <strong>Firma de Jefatura de Estudios</strong>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_resumen_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #333;">
+                    <h2 style="color: #004a99; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #004a99; padding-bottom: 10px;">RESUMEN DE PARTES DE INCIDENCIA</h2>
+                    <p style="text-align: right;"><strong>Fecha:</strong> <span t-esc="context_today().strftime('%d/%m/%Y')"/></p>
+                    
+                    <table class="table table-sm" style="border: 1px solid #dee2e6; width: 100%; table-layout: fixed;">
+                        <thead>
+                            <tr style="background-color: #004a99; color: white;">
+                                <th style="padding: 10px; width: 15%; text-align: center;">Nº PARTE</th>
+                                <th style="padding: 10px; width: 25%;">ALUMNO</th>
+                                <th style="padding: 10px; width: 15%;">FECHA</th>
+                                <th style="padding: 10px; width: 30%;">MOTIVO</th>
+                                <th style="padding: 10px; width: 15%; text-align: center;">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <tr>
+                                    <td style="padding: 8px; text-align: center; font-weight: bold;"><span t-field="o.numero_parte"/></td>
+                                    <td style="padding: 8px;"><span t-field="o.alumno_id.nombre"/></td>
+                                    <td style="padding: 8px;"><span t-field="o.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                    <td style="padding: 8px;"><span t-field="o.motivo_id.descripcion"/></td>
+                                    <td style="padding: 8px; text-align: center;">
+                                        <span t-field="o.estado" style="text-transform: uppercase; font-size: 10px; font-weight: bold; color: #004a99;"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_alumno_faltas_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="alumno">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #333;">
+                        <div style="background-color: #f8f9fa; border-radius: 10px; padding: 20px; border: 1px solid #dee2e6; margin-bottom: 30px;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2 style="color: #004a99; margin-top: 0; font-weight: bold;">HISTORIAL ACADÉMICO</h2>
+                                    <h3 style="text-transform: uppercase;" t-field="alumno.nombre"/>
+                                    <div style="margin-top: 10px;">
+                                        <strong>NIA:</strong> <span t-field="alumno.nia"/> | <strong>GRUPO:</strong> <span t-field="alumno.grupo_id.nombre"/>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <div style="display: inline-block; padding: 12px; background: #fff; border: 2px solid #dc3545; border-radius: 5px; text-align: center;">
+                                        <div style="font-size: 10px; color: #dc3545; font-weight: bold;">INCIDENCIAS TOTALES</div>
+                                        <div style="font-size: 26px; font-weight: bold;" t-field="alumno.total_faltas"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm" style="border: 1px solid #dee2e6; width: 100%; table-layout: fixed;">
+                            <thead>
+                                <tr style="background-color: #004a99; color: white;">
+                                    <th style="padding: 12px; width: 15%; text-align: center;">Nº PARTE</th>
+                                    <th style="padding: 12px; width: 20%;">FECHA/HORA</th>
+                                    <th style="padding: 12px; width: 35%;">MOTIVO / INFRACCIÓN</th>
+                                    <th style="padding: 12px; width: 15%;">LUGAR</th>
+                                    <th style="padding: 12px; width: 15%; text-align: center;">ESTADO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="alumno.falta_ids" t-as="falta">
+                                    <tr>
+                                        <td style="padding: 10px; text-align: center; font-weight: bold;"><span t-field="falta.numero_parte"/></td>
+                                        <td style="padding: 10px;"><span t-field="falta.fecha_hora"/></td>
+                                        <td style="padding: 10px;"><strong><span t-field="falta.motivo_id.descripcion"/></strong></td>
+                                        <td style="padding: 10px; text-transform: capitalize;"><span t-field="falta.lugar"/></td>
+                                        <td style="padding: 10px; text-align: center;">
+                                            <span t-field="falta.estado" style="text-transform: uppercase; font-size: 10px; font-weight: bold;"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="row" style="margin-top: 60px;">
+                            <div class="col-8">
+                                <p style="font-size: 11px; color: #777;">* Este documento es un extracto oficial del historial de convivencia del alumno.</p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div style="border-top: 1px solid #333; padding-top: 5px; font-weight: bold;">Sello del Centro</div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
