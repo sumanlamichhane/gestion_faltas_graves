@@ -1,15 +1,14 @@
-from odoo import models, fields, api
+from odoo import models, fields
 
 class GestionProfesor(models.Model):
     _name = 'gestion.profesor'
     _description = 'Profesor'
     _rec_name = 'nombre'
 
-    
-
     nombre = fields.Char(string='Nombre del Profesor', required=True)
     dni = fields.Char(string='DNI', required=True)
     usuario_id = fields.Many2one('res.users', string='Usuario Odoo')
+    falta_ids = fields.One2many('gestion.falta', 'profesor_id', string='Faltas Reportadas')
 
     _sql_constraints = [
         ('dni_unique', 'unique(dni)', '¡El DNI del profesor ya existe en el sistema!')

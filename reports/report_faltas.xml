@@ -31,6 +31,26 @@
         <field name="binding_type">report</field>
     </record>
 
+    <record id="action_report_grupo_faltas" model="ir.actions.report">
+        <field name="name">Informe de Faltas por Grupo</field>
+        <field name="model">gestion.grupo</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_faltas_graves.report_grupo_template</field>
+        <field name="print_report_name">'Faltas_Grupo_%s' % (object.nombre)</field>
+        <field name="binding_model_id" ref="model_gestion_grupo"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_profesor_faltas" model="ir.actions.report">
+        <field name="name">Informe de Faltas por Profesor</field>
+        <field name="model">gestion.profesor</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_faltas_graves.report_profesor_template</field>
+        <field name="print_report_name">'Faltas_Profesor_%s' % (object.nombre)</field>
+        <field name="binding_model_id" ref="model_gestion_profesor"/>
+        <field name="binding_type">report</field>
+    </record>
+
     <template id="report_falta_template">
         <t t-call="web.html_container">
             <t t-if="len(docs) == 1">
@@ -241,6 +261,76 @@
                                         <td style="padding: 10px; text-align: center;">
                                             <span t-field="falta.estado" style="text-transform: uppercase; font-size: 10px; font-weight: bold;"/>
                                         </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_grupo_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="grupo">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #333;">
+                        <h2 style="color: #004a99; border-bottom: 2px solid #004a99; padding-bottom: 10px;">INFORME DE FALTAS - GRUPO: <span t-field="grupo.nombre"/></h2>
+                        <p><strong>Aula:</strong> <span t-field="grupo.aula"/> | <strong>Tutor:</strong> <span t-field="grupo.tutor_id.nombre"/></p>
+                        <table class="table table-sm mt16" style="border: 1px solid #dee2e6; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #004a99; color: white;">
+                                    <th style="padding: 10px;">Nº PARTE</th>
+                                    <th style="padding: 10px;">ALUMNO</th>
+                                    <th style="padding: 10px;">FECHA</th>
+                                    <th style="padding: 10px;">MOTIVO</th>
+                                    <th style="padding: 10px;">ESTADO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="grupo.falta_ids.sorted(key=lambda f: f.fecha_hora, reverse=True)" t-as="f">
+                                    <tr>
+                                        <td><span t-field="f.numero_parte"/></td>
+                                        <td><span t-field="f.alumno_id.nombre"/></td>
+                                        <td><span t-field="f.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td><span t-field="f.motivo_id.descripcion"/></td>
+                                        <td><span t-field="f.estado"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_profesor_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="profesor">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #333;">
+                        <h2 style="color: #004a99; border-bottom: 2px solid #004a99; padding-bottom: 10px;">PARTES REPORTADOS POR: <span t-field="profesor.nombre"/></h2>
+                        <p><strong>DNI:</strong> <span t-field="profesor.dni"/></p>
+                        <table class="table table-sm mt16" style="border: 1px solid #dee2e6; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #004a99; color: white;">
+                                    <th style="padding: 10px;">Nº PARTE</th>
+                                    <th style="padding: 10px;">ALUMNO</th>
+                                    <th style="padding: 10px;">GRUPO</th>
+                                    <th style="padding: 10px;">FECHA</th>
+                                    <th style="padding: 10px;">ESTADO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="profesor.falta_ids.sorted(key=lambda f: f.fecha_hora, reverse=True)" t-as="f">
+                                    <tr>
+                                        <td><span t-field="f.numero_parte"/></td>
+                                        <td><span t-field="f.alumno_id.nombre"/></td>
+                                        <td><span t-field="f.grupo_id.nombre"/></td>
+                                        <td><span t-field="f.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td><span t-field="f.estado"/></td>
                                     </tr>
                                 </t>
                             </tbody>

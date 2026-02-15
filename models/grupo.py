@@ -8,4 +8,4 @@ class GestionGrupo(models.Model):
     nombre = fields.Char(string='Nombre del Grupo', required=True)
     aula = fields.Char(string='Aula')
     tutor_id = fields.Many2one('gestion.profesor', string='Tutor')
-    
+    falta_ids = fields.One2many('gestion.falta', 'grupo_id', string='Faltas del Grupo')
