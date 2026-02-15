@@ -70,6 +70,12 @@ class GestionFalta(models.Model):
     def action_cerrar_falta(self):
         self.estado = 'cerrado'
 
+    def action_iniciar_instruccion(self):
+        self.estado = 'en_instruccion'
+
+    def action_resolver_falta(self):
+        self.estado = 'resuelto'
+
     def action_reabrir_falta(self):
         self.estado = 'borrador'
 

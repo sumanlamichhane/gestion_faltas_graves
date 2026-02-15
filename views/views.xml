@@ -27,7 +27,7 @@
         <record id="action_todos_partes" model="ir.actions.act_window">
             <field name="name">Todos los partes</field>
             <field name="res_model">gestion.falta</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar,kanban,graph</field>
         </record>
 
         <menuitem id="menu_gestion_faltas_todos_partes"
@@ -46,7 +46,7 @@
         <record id="action_alumnos" model="ir.actions.act_window">
             <field name="name">Alumnos</field>
             <field name="res_model">gestion.alumno</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
 
         <menuitem id="submenu_alumnos"
@@ -125,7 +125,7 @@
                   name="Análisis gráfico"
                   parent="menu_gestion_faltas_informes"
                   action="action_analisis"
-                  groups="gestion_faltas_graves.group_gestion_profesor"
+                  groups="gestion_faltas_graves.group_gestion_jefe_estudios"
                   sequence="1"/>
 
         <record id="action_reportes" model="ir.actions.act_window">
