@@ -27,9 +27,9 @@
 
     <record id="action_report_resumen_faltas" model="ir.actions.report">
         <field name="name">Resumen de Partes Activos</field>
-        <field name="model" eval="'gestion.falta'"/>
+        <field name="model">gestion.falta</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">gestion_faltas_graves.report_resumen_template</field>
+        <field name="report_name">gestion_faltas_graves.report_resumen_activos_template</field>
         <field name="binding_model_id" ref="model_gestion_falta"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="paperformat_faltas_ajustado"/>
@@ -139,7 +139,7 @@
             <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #2c3e50;">
                 <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 65px;"/>
                 <div style="border-bottom: 2px solid #004a99; margin-bottom: 15px;">
-                    <h2 style="color: #004a99; font-weight: bold; margin: 0; font-size: 24px;">RESUMEN DE PARTES</h2>
+                    <h2 style="color: #004a99; font-weight: bold; margin: 0; font-size: 24px;">LISTADO COMPLETO DE PARTES</h2>
                 </div>
                 <table class="table table-sm" style="width: 100%;">
                     <thead>
@@ -160,6 +160,39 @@
                     </tbody>
                 </table>
             </div>
+        </t>
+    </template>
+
+    <template id="report_resumen_activos_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family: 'Helvetica'; font-size: 13px; color: #2c3e50;">
+                    <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 65px;"/>
+                    <div style="border-bottom: 2px solid #004a99; margin-bottom: 15px;">
+                        <h2 style="color: #004a99; font-weight: bold; margin: 0; font-size: 24px;">RESUMEN DE PARTES ACTIVOS</h2>
+                    </div>
+                    <table class="table table-sm" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color: #004a99; color: white;">
+                                <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <t t-if="o.estado == 'borrador'">
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 8px;"><strong><span t-field="o.numero_parte"/></strong></td>
+                                        <td style="padding: 8px;"><span t-field="o.alumno_id.nombre"/></td>
+                                        <td style="padding: 8px;"><span t-field="o.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td style="padding: 8px;"><span t-field="o.motivo_id.descripcion"/></td>
+                                        <td style="padding: 8px;"><span t-field="o.estado"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
         </t>
     </template>
 
