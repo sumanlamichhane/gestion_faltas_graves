@@ -10,22 +10,17 @@
                     <field name="fecha_hora"/>
                     <field name="alumno_id" widget="many2one_avatar"/>
                     <field name="grupo_id" optional="hide"/>
-                    
                     <field name="gravedad" widget="badge" 
                            decoration-success="gravedad == '0'" 
                            decoration-info="gravedad == '1'"
                            decoration-warning="gravedad == '2'"
                            decoration-danger="gravedad == '3'"/>
-                    
                     <field name="motivo_id"/>
-                    
                     <field name="lugar" widget="badge" 
                            decoration-info="lugar == 'aula'" 
                            decoration-success="lugar == 'patio'"
                            decoration-warning="lugar == 'pasillo'"/>
-                           
                     <field name="profesor_id"/>
-                    
                     <field name="estado" widget="badge" 
                            decoration-info="estado == 'borrador'"
                            decoration-warning="estado == 'en_instruccion'"
@@ -45,7 +40,6 @@
                                 states="borrador,en_instruccion" class="oe_highlight"/>
                         <button name="action_reabrir_falta" string="Reabrir" type="object" 
                                 states="cerrado,resuelto" groups="base.group_no_one"/>
-                        
                         <field name="estado" widget="statusbar" statusbar_visible="borrador,en_instruccion,resuelto,cerrado" options="{'clickable': '1'}"/>
                     </header>
                     <sheet>
@@ -87,7 +81,6 @@
                                     <field name="testigos" placeholder="Nombres de los testigos..."/>
                                 </group>
                             </page>
-                            
                             <page string="Comunicación con Familia">
                                 <group>
                                     <group>
@@ -99,7 +92,6 @@
                                     </group>
                                 </group>
                             </page>
-
                             <page string="Resolución y Medidas">
                                 <group>
                                     <field name="medidas_iniciales" placeholder="Medidas tomadas por el profesor..."/>
@@ -123,12 +115,39 @@
                     <filter string="Mis Partes" name="my_faults" domain="[('create_uid', '=', uid)]"/>
                     <separator/>
                     <filter string="Abiertos" name="open_faults" domain="[('estado', 'in', ('borrador', 'en_instruccion'))]"/>
-                    <filter string="Graves" name="high_severity" domain="[('gravedad', 'in', ('2','3'))]"/>
+                    <filter string="Cerrados" name="closed_faults" domain="[('estado', 'in', ('cerrado', 'resuelto'))]"/>
                     <group expand="0" string="Agrupar Por">
                         <filter string="Alumno" name="group_student" context="{'group_by': 'alumno_id'}"/>
-                        <filter string="Gravedad" name="group_severity" context="{'group_by': 'gravedad'}"/>
+                        <filter string="Estado" name="group_state" context="{'group_by': 'estado'}"/>
+                        <filter string="Lugar" name="group_location" context="{'group_by': 'lugar'}"/>
+                        <filter string="Fecha" name="group_date" context="{'group_by': 'fecha_hora:month'}"/>
                     </group>
                 </search>
+            </field>
+        </record>
+
+        <record id="view_falta_calendar" model="ir.ui.view">
+            <field name="name">gestion.falta.calendar</field>
+            <field name="model">gestion.falta</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendario de Faltas" date_start="fecha_hora" color="estado" mode="month">
+                    <field name="alumno_id"/>
+                    <field name="lugar"/>
+                    <field name="estado"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_falta_graph" model="ir.ui.view">
+            <field name="name">gestion.falta.graph</field>
+            <field name="model">gestion.falta</field>
+            <field name="arch" type="xml">
+                <graph string="Análisis de Faltas" type="bar" stacked="True">
+                    <field name="grupo_id" type="row"/>
+                    <field name="alumno_id" type="row"/>
+                    <field name="motivo_id" type="row"/>
+                    <field name="estado" type="col"/>
+                </graph>
             </field>
         </record>
 

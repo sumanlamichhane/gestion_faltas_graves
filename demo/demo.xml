@@ -2,26 +2,30 @@
 <odoo>
     <data noupdate="1">
         <record id="grupo_1eso_a" model="gestion.grupo">
-            <field name="name">1º ESO A</field>
+            <field name="nombre">1º ESO A</field>
         </record>
         <record id="grupo_2eso_b" model="gestion.grupo">
-            <field name="name">2º ESO B</field>
+            <field name="nombre">2º ESO B</field>
         </record>
         <record id="grupo_4eso_c" model="gestion.grupo">
-            <field name="name">4º ESO C</field>
+            <field name="nombre">4º ESO C</field>
         </record>
 
         <record id="motivo_agresion" model="gestion.motivo">
-            <field name="name">Agresión física</field>
+            <field name="codigo">F001</field>
+            <field name="descripcion">Agresión física</field>
         </record>
         <record id="motivo_insulto" model="gestion.motivo">
-            <field name="name">Insultos a profesor</field>
+            <field name="codigo">F002</field>
+            <field name="descripcion">Insultos a profesor</field>
         </record>
         <record id="motivo_material" model="gestion.motivo">
-            <field name="name">Daños material</field>
+            <field name="codigo">F003</field>
+            <field name="descripcion">Daños material</field>
         </record>
         <record id="motivo_retraso" model="gestion.motivo">
-            <field name="name">Retrasos reiterados</field>
+            <field name="codigo">F004</field>
+            <field name="descripcion">Retrasos reiterados</field>
         </record>
 
         <record id="profesor_demo_1" model="gestion.profesor">
