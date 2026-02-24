@@ -1,5 +1,5 @@
 import base64
-from lxml import etree
+import xml.etree.ElementTree as ET
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 
@@ -20,13 +20,13 @@ class ImportadorDatosWizard(models.TransientModel):
         
         xml_content = base64.b64decode(self.archivo_xml)
         try:
-            root = etree.fromstring(xml_content)
+            root = ET.fromstring(xml_content)
         except Exception as e:
             raise UserError(f"Error en el formato del XML: {str(e)}")
 
         # 1. PROFESORES (Mapeo: nombre, documento -> dni)
         if self.tipo_importacion == 'profesores':
-            for doc in root.xpath('//docente'):
+            for doc in root.findall('.//docente'):
                 dni = doc.get('documento')
                 if dni and not self.env['gestion.profesor'].search([('dni', '=', dni)]):
                     self.env['gestion.profesor'].create({
@@ -36,7 +36,7 @@ class ImportadorDatosWizard(models.TransientModel):
 
         # 2. GRUPOS (Mapeo: codigo -> nombre, aula, tutor_ppal -> tutor_id)
         elif self.tipo_importacion == 'grupos':
-            for g in root.xpath('//grupo'):
+            for g in root.findall('.//grupo'):
                 codigo = g.get('codigo') # Usamos el código corto tipo "2CFSJ"
                 if codigo and not self.env['gestion.grupo'].search([('nombre', '=', codigo)]):
                     tutor = self.env['gestion.profesor'].search([('dni', '=', g.get('tutor_ppal'))], limit=1)
@@ -48,7 +48,7 @@ class ImportadorDatosWizard(models.TransientModel):
 
         # 3. ALUMNOS (Mapeo: NIA, nombre, grupo -> grupo_id)
         elif self.tipo_importacion == 'alumnos':
-            for al in root.xpath('//alumno'):
+            for al in root.findall('.//alumno'):
                 nia = al.get('NIA')
                 if nia and not self.env['gestion.alumno'].search([('nia', '=', nia)]):
                     grupo = self.env['gestion.grupo'].search([('nombre', '=', al.get('grupo'))], limit=1)
