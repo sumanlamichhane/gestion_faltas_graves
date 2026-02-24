@@ -10,11 +10,6 @@
                     <field name="fecha_hora"/>
                     <field name="alumno_id" widget="many2one_avatar"/>
                     <field name="grupo_id" optional="hide"/>
-                    <field name="gravedad" widget="badge" 
-                           decoration-success="gravedad == '0'" 
-                           decoration-info="gravedad == '1'"
-                           decoration-warning="gravedad == '2'"
-                           decoration-danger="gravedad == '3'"/>
                     <field name="motivo_id"/>
                     <field name="lugar" widget="badge" 
                            decoration-info="lugar == 'aula'" 
@@ -65,7 +60,6 @@
                             <group string="Detalles del Suceso">
                                 <field name="fecha_hora"/>
                                 <field name="lugar"/>
-                                <field name="gravedad" widget="radio" options="{'horizontal': true}"/>
                                 <field name="motivo_id" options="{'no_create': True}"/>
                                 <field name="asignatura_id" attrs="{'invisible': [('lugar', '!=', 'aula')]}"/>
                             </group>
@@ -161,7 +155,6 @@
                     <field name="fecha_hora"/>
                     <field name="estado"/>
                     <field name="profesor_id"/>
-                    <field name="gravedad"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_global_click">
@@ -180,7 +173,6 @@
                                     <br/>
                                     <span class="fa fa-user"/> <field name="profesor_id"/>
                                     <br/>
-                                    <span class="badge badge-secondary"><field name="gravedad"/></span>
                                 </div>
                             </div>
                         </t>
