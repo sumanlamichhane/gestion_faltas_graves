@@ -39,14 +39,9 @@
                         <notebook>
                             <page string="Historial de Faltas">
                                 <field name="falta_ids">
-                                    <tree decoration-danger="gravedad == '3'">
+                                    <tree>
                                         <field name="fecha_hora"/>
                                         <field name="motivo_id"/>
-                                        <field name="gravedad" widget="badge" 
-                                               decoration-success="gravedad == '0'" 
-                                               decoration-info="gravedad == '1'"
-                                               decoration-warning="gravedad == '2'"
-                                               decoration-danger="gravedad == '3'"/>
                                         <field name="estado" widget="badge"
                                                decoration-info="estado == 'borrador'"
                                                decoration-warning="estado == 'en_instruccion'"

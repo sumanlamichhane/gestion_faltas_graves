@@ -73,7 +73,6 @@
             <field name="profesor_id" ref="profesor_demo_1"/>
             <field name="motivo_id" ref="motivo_agresion"/>
             <field name="lugar">patio</field>
-            <field name="gravedad">3</field>
             <field name="descripcion_hechos">Pelea durante el recreo.</field>
             <field name="estado">en_instruccion</field>
             <field name="fecha_hora" eval="(DateTime.now()).strftime('%Y-%m-%d 10:30:00')"/>
@@ -84,7 +83,6 @@
             <field name="profesor_id" ref="profesor_demo_2"/>
             <field name="motivo_id" ref="motivo_retraso"/>
             <field name="lugar">aula</field>
-            <field name="gravedad">0</field>
             <field name="descripcion_hechos">Llega tarde sin justificar.</field>
             <field name="estado">borrador</field>
         </record>
@@ -94,7 +92,6 @@
             <field name="profesor_id" ref="profesor_demo_1"/>
             <field name="motivo_id" ref="motivo_material"/>
             <field name="lugar">aula</field>
-            <field name="gravedad">2</field>
             <field name="descripcion_hechos">Pintadas en la mesa.</field>
             <field name="estado">resuelto</field>
         </record>
@@ -104,7 +101,6 @@
             <field name="profesor_id" ref="profesor_demo_2"/>
             <field name="motivo_id" ref="motivo_insulto"/>
             <field name="lugar">pasillo</field>
-            <field name="gravedad">1</field>
             <field name="descripcion_hechos">Falta de respeto leve.</field>
             <field name="estado">cerrado</field>
         </record>
@@ -114,7 +110,6 @@
             <field name="profesor_id" ref="profesor_demo_1"/>
             <field name="motivo_id" ref="motivo_agresion"/>
             <field name="lugar">gimnasio</field>
-            <field name="gravedad">3</field>
             <field name="descripcion_hechos">Lanzar balón a un compañero a la cara.</field>
             <field name="estado">en_instruccion</field>
         </record>
