@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_informe_trimestre_wizard" model="ir.ui.view">
+        <field name="name">gestion.informe.trimestre.wizard.form</field>
+        <field name="model">gestion.informe.trimestre.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Filtrar Informe por Fechas">
+                <group>
+                    <p class="oe_grey">Selecciona el rango de fechas (trimestre) para generar el resumen de partes.</p>
+                </group>
+                <group>
+                    <group>
+                        <field name="fecha_inicio"/>
+                    </group>
+                    <group>
+                        <field name="fecha_fin"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generar_informe" string="Imprimir PDF" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_informe_trimestre_wizard" model="ir.actions.act_window">
+        <field name="name">Resumen por Trimestre</field>
+        <field name="res_model">gestion.informe.trimestre.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="submenu_informe_trimestral"
+              name="Resumen por Trimestre"
+              parent="menu_gestion_faltas_informes"
+              action="action_informe_trimestre_wizard"
+              groups="gestion_faltas_graves.group_gestion_profesor"
+              sequence="3"/>
+</odoo>

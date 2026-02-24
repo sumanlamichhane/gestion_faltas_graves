@@ -11,3 +11,4 @@ access_gestion_grupo_profesor,gestion.grupo.profesor,model_gestion_grupo,group_g
 access_gestion_grupo_jefe,gestion.grupo.jefe,model_gestion_grupo,group_gestion_jefe_estudios,1,1,1,1
 access_gestion_motivo_profesor,gestion.motivo.profesor,model_gestion_motivo,group_gestion_profesor,1,0,0,0
 access_gestion_motivo_jefe,gestion.motivo.jefe,model_gestion_motivo,group_gestion_jefe_estudios,1,1,1,1
+access_informe_trimestre_wizard,informe.trimestre.wizard,model_gestion_informe_trimestre_wizard,group_gestion_profesor,1,1,1,1

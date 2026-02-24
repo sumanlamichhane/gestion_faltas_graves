@@ -17,10 +17,9 @@
         'views/falta_views.xml',
         'views/views.xml',
         'reports/report_faltas.xml',
-        
+        'wizard/informe_trimestre_view.xml',  # Añade esta línea
         'demo/demo.xml',  
     ],
-    
     'installable': True,
     'application': True,
 }
