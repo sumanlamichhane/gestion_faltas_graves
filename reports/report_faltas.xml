@@ -119,6 +119,7 @@
                 <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 8px; border-radius: 5px; margin-bottom: 12px;">
                     <p style="margin-bottom: 1px;"><strong>Motivo:</strong> <span t-field="o.motivo_id.descripcion"/> (<span t-field="o.motivo_id.codigo"/>)</p>
                     <p t-if="o.asignatura_id" style="margin-bottom: 1px;"><strong>Asignatura:</strong> <span t-field="o.asignatura_id.nombre"/></p>
+                    <p style="margin-bottom: 1px;"><strong>Llamada Familia:</strong> <span t-field="o.llamada_familia"/> <t t-if="o.fecha_llamada">el <span t-field="o.fecha_llamada"/></t></p>
                 </div>
                 <div class="mb-2">
                     <h6 style="color: #004a99; font-weight: bold; font-size: 12px;">DESCRIPCIÓN DE LOS HECHOS</h6>
@@ -144,7 +145,7 @@
                 <table class="table table-sm" style="width: 100%;">
                     <thead>
                         <tr style="background-color: #004a99; color: white;">
-                            <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
+                            <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA Y HORA</th><th style="padding: 8px;">LLAMADA FAMILIA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,7 +153,8 @@
                             <tr style="border-bottom: 1px solid #dee2e6;">
                                 <td style="padding: 8px;"><strong><span t-field="o.numero_parte"/></strong></td>
                                 <td style="padding: 8px;"><span t-field="o.alumno_id.nombre"/></td>
-                                <td style="padding: 8px;"><span t-field="o.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                <td style="padding: 8px;"><span t-field="o.fecha_hora"/></td>
+                                <td style="padding: 8px;"><span t-field="o.llamada_familia"/> <t t-if="o.fecha_llamada"><br/><small><span t-field="o.fecha_llamada"/></small></t></td>
                                 <td style="padding: 8px;"><span t-field="o.motivo_id.descripcion"/></td>
                                 <td style="padding: 8px;"><span t-field="o.estado"/></td>
                             </tr>
@@ -174,7 +176,7 @@
                     <table class="table table-sm" style="width: 100%;">
                         <thead>
                             <tr style="background-color: #004a99; color: white;">
-                                <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
+                                <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA Y HORA</th><th style="padding: 8px;">LLAMADA FAMILIA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -183,7 +185,8 @@
                                     <tr style="border-bottom: 1px solid #dee2e6;">
                                         <td style="padding: 8px;"><strong><span t-field="o.numero_parte"/></strong></td>
                                         <td style="padding: 8px;"><span t-field="o.alumno_id.nombre"/></td>
-                                        <td style="padding: 8px;"><span t-field="o.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td style="padding: 8px;"><span t-field="o.fecha_hora"/></td>
+                                        <td style="padding: 8px;"><span t-field="o.llamada_familia"/> <t t-if="o.fecha_llamada"><br/><small><span t-field="o.fecha_llamada"/></small></t></td>
                                         <td style="padding: 8px;"><span t-field="o.motivo_id.descripcion"/></td>
                                         <td style="padding: 8px;"><span t-field="o.estado"/></td>
                                     </tr>
@@ -216,14 +219,15 @@
                         <table class="table table-sm" style="width: 100%;">
                             <thead>
                                 <tr style="background-color: #004a99; color: white;">
-                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">PROFESOR</th><th style="padding: 8px;">ESTADO</th>
+                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">FECHA Y HORA</th><th style="padding: 8px;">LLAMADA FAMILIA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">PROFESOR</th><th style="padding: 8px;">ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="alumno.falta_ids" t-as="falta">
                                     <tr style="border-bottom: 1px solid #dee2e6;">
                                         <td style="padding: 8px;"><strong><span t-field="falta.numero_parte"/></strong></td>
-                                        <td style="padding: 8px;"><span t-field="falta.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td style="padding: 8px;"><span t-field="falta.fecha_hora"/></td>
+                                        <td style="padding: 8px;"><span t-field="falta.llamada_familia"/> <t t-if="falta.fecha_llamada"><br/><small><span t-field="falta.fecha_llamada"/></small></t></td>
                                         <td style="padding: 8px;"><span t-field="falta.motivo_id.descripcion"/></td>
                                         <td style="padding: 8px;"><span t-field="falta.profesor_id.nombre"/></td>
                                         <td style="padding: 8px;"><span t-field="falta.estado"/></td>
@@ -256,7 +260,7 @@
                         <table class="table table-sm" style="width: 100%;">
                             <thead>
                                 <tr style="background-color: #004a99; color: white;">
-                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
+                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">FECHA Y HORA</th><th style="padding: 8px;">LLAMADA FAMILIA</th><th style="padding: 8px;">MOTIVO</th><th style="padding: 8px;">ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -264,7 +268,8 @@
                                     <tr style="border-bottom: 1px solid #dee2e6;">
                                         <td style="padding: 8px;"><strong><span t-field="f.numero_parte"/></strong></td>
                                         <td style="padding: 8px;"><span t-field="f.alumno_id.nombre"/></td>
-                                        <td style="padding: 8px;"><span t-field="f.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td style="padding: 8px;"><span t-field="f.fecha_hora"/></td>
+                                        <td style="padding: 8px;"><span t-field="f.llamada_familia"/> <t t-if="f.fecha_llamada"><br/><small><span t-field="f.fecha_llamada"/></small></t></td>
                                         <td style="padding: 8px;"><span t-field="f.motivo_id.descripcion"/></td>
                                         <td style="padding: 8px;"><span t-field="f.estado"/></td>
                                     </tr>
@@ -296,7 +301,7 @@
                         <table class="table table-sm" style="width: 100%;">
                             <thead>
                                 <tr style="background-color: #004a99; color: white;">
-                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">GRUPO</th><th style="padding: 8px;">FECHA</th><th style="padding: 8px;">ESTADO</th>
+                                    <th style="padding: 8px;">Nº PARTE</th><th style="padding: 8px;">ALUMNO</th><th style="padding: 8px;">GRUPO</th><th style="padding: 8px;">FECHA Y HORA</th><th style="padding: 8px;">LLAMADA FAMILIA</th><th style="padding: 8px;">ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -305,7 +310,8 @@
                                         <td style="padding: 8px;"><strong><span t-field="f.numero_parte"/></strong></td>
                                         <td style="padding: 8px;"><span t-field="f.alumno_id.nombre"/></td>
                                         <td style="padding: 8px;"><span t-field="f.grupo_id.nombre"/></td>
-                                        <td style="padding: 8px;"><span t-field="f.fecha_hora" t-options='{"widget": "date"}'/></td>
+                                        <td style="padding: 8px;"><span t-field="f.fecha_hora"/></td>
+                                        <td style="padding: 8px;"><span t-field="f.llamada_familia"/> <t t-if="f.fecha_llamada"><br/><small><span t-field="f.fecha_llamada"/></small></t></td>
                                         <td style="padding: 8px;"><span t-field="f.estado"/></td>
                                     </tr>
                                 </t>
