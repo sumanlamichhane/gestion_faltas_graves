@@ -18,6 +18,7 @@
         'views/views.xml',
         'reports/report_faltas.xml',
         'wizard/informe_trimestre_view.xml',  # Añade esta línea
+        'wizard/importador_datos_view.xml',
         'demo/demo.xml',  
     ],
     'installable': True,
