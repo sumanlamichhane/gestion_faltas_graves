@@ -51,7 +51,6 @@ class ImportadorDatosWizard(models.TransientModel):
                 if codigo:
                     existente = self.env['gestion.grupo'].search([('nombre', '=', codigo)])
                     if not existente:
-                        # Buscamos el tutor por el DNI que viene en 'tutor_ppal'
                         tutor_dni = g.get('tutor_ppal')
                         tutor = self.env['gestion.profesor'].search([('dni', '=', tutor_dni)], limit=1)
                         
@@ -70,7 +69,6 @@ class ImportadorDatosWizard(models.TransientModel):
                 if nia:
                     existente = self.env['gestion.alumno'].search([('nia', '=', nia)])
                     if not existente:
-                        # Buscamos el grupo por el código exacto
                         cod_grupo = a.get('grupo')
                         grupo = self.env['gestion.grupo'].search([('nombre', '=', cod_grupo)], limit=1)
                         
