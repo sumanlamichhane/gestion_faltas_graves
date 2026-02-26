@@ -5,7 +5,8 @@ class GestionGrupo(models.Model):
     _description = 'Grupos'
     _rec_name = 'nombre'
 
-    nombre = fields.Char(string='Nombre del Grupo', required=True)
+    nombre = fields.Char(string='Código del Grupo', required=True) # Atributo 'codigo'
+    denominacion = fields.Char(string='Nombre Completo') # Atributo 'nombre'
     aula = fields.Char(string='Aula')
-    tutor_id = fields.Many2one('gestion.profesor', string='Tutor')
+    tutor_id = fields.Many2one('gestion.profesor', string='Tutor Principal')
     falta_ids = fields.One2many('gestion.falta', 'grupo_id', string='Faltas del Grupo')

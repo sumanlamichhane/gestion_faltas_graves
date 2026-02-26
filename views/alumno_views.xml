@@ -1,91 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_alumno_tree" model="ir.ui.view">
-            <field name="name">gestion.alumno.tree</field>
-            <field name="model">gestion.alumno</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="nombre"/>
-                    <field name="nia"/>
-                    <field name="grupo_id"/>
-                    <field name="total_faltas" 
-                           decoration-danger="total_faltas > 0" 
-                           decoration-bf="total_faltas > 0"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_alumno_tree" model="ir.ui.view">
+        <field name="name">gestion.alumno.tree</field>
+        <field name="model">gestion.alumno</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="nia"/>
+                <field name="grupo_id"/>
+                <field name="total_faltas" decoration-danger="total_faltas > 0"/>
+            </tree>
+        </field>
+    </record>
 
-        <record id="view_alumno_form" model="ir.ui.view">
-            <field name="name">gestion.alumno.form</field>
-            <field name="model">gestion.alumno</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <field name="foto" widget="image" class="oe_avatar"/>
-                        <div class="oe_title">
-                            <label for="nombre" class="oe_edit_only"/>
-                            <h1><field name="nombre"/></h1>
-                        </div>
-                        <group>
-                            <group>
-                                <field name="nia"/>
-                                <field name="grupo_id"/>
-                            </group>
-                            <group>
-                                <field name="total_faltas"/>
-                            </group>
+    <record id="view_alumno_form" model="ir.ui.view">
+        <field name="name">gestion.alumno.form</field>
+        <field name="model">gestion.alumno</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="foto" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="nombre" class="oe_edit_only"/>
+                        <h1><field name="nombre"/></h1>
+                    </div>
+                    <group>
+                        <group string="Datos Académicos">
+                            <field name="nia"/>
+                            <field name="grupo_id"/>
+                            <field name="total_faltas"/>
                         </group>
-                        <notebook>
-                            <page string="Historial de Faltas">
-                                <field name="falta_ids">
-                                    <tree>
-                                        <field name="fecha_hora"/>
-                                        <field name="motivo_id"/>
-                                        <field name="estado" widget="badge"
-                                               decoration-info="estado == 'borrador'"
-                                               decoration-warning="estado == 'en_instruccion'"
-                                               decoration-success="estado == 'resuelto'"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_alumno_kanban" model="ir.ui.view">
-            <field name="name">gestion.alumno.kanban</field>
-            <field name="model">gestion.alumno</field>
-            <field name="arch" type="xml">
-                <kanban>
-                    <field name="id"/>
-                    <field name="nombre"/>
-                    <field name="foto"/>
-                    <field name="total_faltas"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
-                                <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('gestion.alumno', 'foto', record.id.raw_value)" alt="Alumno"/>
-                                </div>
-                                <div class="oe_kanban_details">
-                                    <strong><field name="nombre"/></strong>
-                                    <div t-if="record.total_faltas.raw_value > 0">
-                                        <span class="badge badge-danger">
-                                            <field name="total_faltas"/> Faltas
-                                        </span>
-                                    </div>
-                                    <div t-else="">
-                                        <span class="badge badge-success">Sin Faltas</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-    </data>
+                        <group string="Contacto">
+                            <field name="dni"/>
+                            <field name="telefono1"/>
+                            <field name="telefono2"/>
+                            <field name="email1" widget="email"/>
+                        </group>
+                    </group>
+                    <group string="Localización">
+                        <field name="domicilio"/>
+                        <group>
+                            <field name="numero"/>
+                            <field name="piso"/>
+                        </group>
+                        <group>
+                            <field name="localidad"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Historial de Faltas">
+                            <field name="falta_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

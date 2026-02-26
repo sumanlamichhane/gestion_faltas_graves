@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_importador_datos_form" model="ir.ui.view">
-        <field name="name">gestion.importador.form</field>
+    <record id="view_importador_datos_wizard_form" model="ir.ui.view">
+        <field name="name">gestion.importador.wizard.form</field>
         <field name="model">gestion.importador.wizard</field>
         <field name="arch" type="xml">
-            <form string="Importar Datos Anuales">
-                <group>
-                    <field name="tipo_importacion" widget="radio"/>
-                    <field name="archivo_xml" filename="nombre_archivo"/>
-                </group>
-                <footer>
-                    <button name="action_importar" string="Importar" type="object" class="btn-primary"/>
-                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
-                </footer>
+            <form string="Importar Datos desde XML">
+                <sheet>
+                    <group>
+                        <field name="tipo_importacion" widget="radio"/>
+                        <field name="archivo_xml" filename="nombre_archivo"/>
+                    </group>
+                    <footer>
+                        <button name="action_importar" string="Cargar Datos" type="object" class="btn-primary"/>
+                        <button string="Descartar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
             </form>
         </field>
     </record>
 
-    <record id="action_importador_wizard" model="ir.actions.act_window">
-        <field name="name">Importación de XML</field>
+    <record id="action_gestion_importador_wizard" model="ir.actions.act_window">
+        <field name="name">Importar XML Académico</field>
         <field name="res_model">gestion.importador.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_importador" name="Importar XML" parent="menu_gestion_faltas_config" action="action_importador_wizard"/>
+    <menuitem id="menu_gestion_importador" 
+              name="Importar Datos" 
+              parent="menu_gestion_faltas_config" 
+              action="action_gestion_importador_wizard" 
+              sequence="100"/>
 </odoo>

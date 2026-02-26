@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Tree View Profesor -->
-        <record id="view_profesor_tree" model="ir.ui.view">
-            <field name="name">gestion.profesor.tree</field>
-            <field name="model">gestion.profesor</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="nombre"/>
-                    <field name="dni"/>
-                    <field name="usuario_id"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_profesor_tree" model="ir.ui.view">
+        <field name="name">gestion.profesor.tree</field>
+        <field name="model">gestion.profesor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="dni"/>
+                <field name="telefono1"/>
+                <field name="email1"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- Form View Profesor -->
-        <record id="view_profesor_form" model="ir.ui.view">
-            <field name="name">gestion.profesor.form</field>
-            <field name="model">gestion.profesor</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="nombre" class="oe_edit_only"/>
-                            <h1>
-                                <field name="nombre"/>
-                                <field name="dni" invisible="context.get('default_dni', False)"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group>
-                                <field name="dni"/>
-                                <field name="usuario_id" options="{'no_create': True}"/>
-                            </group>
+    <record id="view_profesor_form" model="ir.ui.view">
+        <field name="name">gestion.profesor.form</field>
+        <field name="model">gestion.profesor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="nombre" class="oe_edit_only"/>
+                        <h1><field name="nombre"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identificación">
+                            <field name="dni"/>
+                            <field name="usuario_id"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-    </data>
+                        <group string="Contacto">
+                            <field name="telefono1"/>
+                            <field name="telefono2"/>
+                            <field name="email1" widget="email"/>
+                            <field name="email2" widget="email"/>
+                        </group>
+                    </group>
+                    <group string="Dirección">
+                        <field name="domicilio"/>
+                        <group>
+                            <field name="numero"/>
+                            <field name="piso"/>
+                            <field name="letra"/>
+                        </group>
+                        <group>
+                            <field name="cp"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

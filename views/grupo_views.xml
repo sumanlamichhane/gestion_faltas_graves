@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_grupo_tree" model="ir.ui.view">
-            <field name="name">gestion.grupo.tree</field>
-            <field name="model">gestion.grupo</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="nombre"/>
-                    <field name="aula"/>
-                    <field name="tutor_id"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_grupo_tree" model="ir.ui.view">
+        <field name="name">gestion.grupo.tree</field>
+        <field name="model">gestion.grupo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="denominacion"/>
+                <field name="aula"/>
+                <field name="tutor_id"/>
+            </tree>
+        </field>
+    </record>
 
-        <record id="view_grupo_form" model="ir.ui.view">
-            <field name="name">gestion.grupo.form</field>
-            <field name="model">gestion.grupo</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <div class="oe_title">
-                            <h1><field name="nombre"/></h1>
-                        </div>
+    <record id="view_grupo_form" model="ir.ui.view">
+        <field name="name">gestion.grupo.form</field>
+        <field name="model">gestion.grupo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="nombre" string="Código del Grupo"/>
+                        <h1><field name="nombre"/></h1>
+                        <label for="denominacion" string="Nombre Completo"/>
+                        <h2><field name="denominacion"/></h2>
+                    </div>
+                    <group>
                         <group>
-                            <group string="Aula">
-                                <field name="aula"/>
-                            </group>
-                            <group string="Tutor">
-                                <field name="tutor_id"/>
-                            </group>
+                            <field name="aula"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-    </data>
+                        <group>
+                            <field name="tutor_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>
